@@ -5,6 +5,8 @@ let multer = require("multer");
 let jwt = require("jsonwebtoken");
 let app = express();
 let bcrypt = require("bcrypt");
+let dotenv = require("dotenv");
+dotenv.config();
 let connection;
 app.use(cors());
 app.use(express.json());
@@ -45,7 +47,7 @@ app.post("/signup", upload.single("profile"), async (req, res) => {
   });
 });
 
-app.listen(9595, () => {
+app.listen(process.env.PORT, () => {
   console.log("server is running on port 9595");
 });
 app.post("/validate", upload.none(), async (req, res) => {
@@ -122,11 +124,11 @@ app.post("/login", upload.none(), async (req, res) => {
 
 let connectTodata = () => {
   connection = mysql.createConnection({
-    database: "playersdata",
-    port: 3306,
-    host: "localhost",
-    password: "root",
-    user: "root",
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
+    host: process.env.DB_HOST,
+    password: process.env.DB_PASSWORD,
+    user: process.env.DB_USER,
   });
 
   connection.connect((error) => {
