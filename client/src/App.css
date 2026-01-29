@@ -1,0 +1,41 @@
+.App {
+  text-align: center;
+}
+
+.App {
+  text-align: center;
+}
+
+form {
+  background-color: rgb(113, 55, 13);
+  display: inline-block;
+}
+
+form label{
+  display: inline-block;
+  width: 150px;
+}
+
+form div{
+  margin: 15px;
+}
+
+.profilephoto{
+  width: 150px;
+  border:2px solid black;
+}
+
+
+.salaarsahoo{
+  
+  display: flex;
+  justify-content: space-around;
+  background-color: burlywood;
+  font-size: 21px;
+}
+
+.dashboardimage{
+  width: 200px;
+  border-radius: 50%;
+  border: 3px solid black;
+}
