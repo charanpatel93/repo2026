@@ -21,6 +21,9 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully ");
+});
 app.post("/signup", upload.single("profile"), async (req, res) => {
   let bcrypting = await bcrypt.hash(req.body.password, 10);
   req.body.password = bcrypting;
