@@ -18,7 +18,7 @@ useEffect(() => {
     storee.append("token", token);
 
     let JSONData = await fetch(
-      "http://localhost:9595/validate",
+      "/validate",
       {
         method: "POST",
         body: storee,
@@ -46,7 +46,7 @@ useEffect(() => {
         method:"POST",
         body:storee
     }
-   let JSONData=await fetch("http://localhost:9595/login",reqOperationss)
+   let JSONData=await fetch("/login",reqOperationss)
    let JSOData=await JSONData.json()
    console.log(JSOData)
    alert(JSOData.msg)

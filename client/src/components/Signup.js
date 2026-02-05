@@ -26,7 +26,7 @@ function Signup() {
     body:dataa
    }
 
-   let JSONData=await fetch("http://localhost:9595/signup",reqOperation)
+   let JSONData=await fetch("/signup",reqOperation)
    let JSOData=await JSONData.json()
    console.log(JSOData)
    alert(JSOData.msg)
