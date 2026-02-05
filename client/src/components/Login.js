@@ -35,7 +35,7 @@ useEffect(() => {
     }
   };
 
-  cridentials();
+  // cridentials();
 }, [dispatch, navigate]);
    let sendinggg=async()=>{
     let storee=new FormData();
