@@ -121,20 +121,26 @@ app.listen(process.env.PORT || 9595, () => {
   console.log("server started");
 });
 let connectTodata = () => {
-  connection = mysql.createConnection({
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
+  const isProduction = process.env.DB_HOST !== "localhost";
+
+  const connection = mysql.createConnection({
     host: process.env.DB_HOST,
-    password: process.env.DB_PASSWORD,
     user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: Number(process.env.DB_PORT),
+    ...(isProduction && {
+      ssl: { rejectUnauthorized: false }
+    })
   });
 
-  connection.connect((error) => {
-    if (error) {
-      console.log("database is not connected");
+  connection.connect((err) => {
+    if (err) {
+      console.error("DB ERROR:", err.code, err.message);
     } else {
       console.log("database is connected");
     }
   });
 };
+
 connectTodata();
