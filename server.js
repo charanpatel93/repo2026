@@ -21,9 +21,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-app.get("/", (req, res) => {
-  res.send("Backend is running successfully ");
-});
 app.post("/signup", upload.single("profile"), async (req, res) => {
   let bcrypting = await bcrypt.hash(req.body.password, 10);
   req.body.password = bcrypting;
@@ -124,26 +121,20 @@ app.listen(process.env.PORT || 9595, () => {
   console.log("server started");
 });
 let connectTodata = () => {
-  const isProduction = process.env.DB_HOST !== "localhost";
-
-  const connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+  connection = mysql.createConnection({
     database: process.env.DB_NAME,
-    port: Number(process.env.DB_PORT),
-    ...(isProduction && {
-      ssl: { rejectUnauthorized: false }
-    })
+    port: process.env.DB_PORT,
+    host: process.env.DB_HOST,
+    password: process.env.DB_PASSWORD,
+    user: process.env.DB_USER,
   });
 
-  connection.connect((err) => {
-    if (err) {
-      console.error("DB ERROR:", err.code, err.message);
+  connection.connect((error) => {
+    if (error) {
+      console.log("database is not connected");
     } else {
       console.log("database is connected");
     }
   });
 };
-
 connectTodata();
