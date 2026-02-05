@@ -46,10 +46,6 @@ app.post("/signup", upload.single("profile"), async (req, res) => {
     }
   });
 });
-
-app.listen(process.env.PORT, () => {
-  console.log("server is running on port 9595");
-});
 app.post("/validate", upload.none(), async (req, res) => {
   let decripyedData = jwt.verify(req.body.token, "kalki");
   let taking = `SELECT * FROM players WHERE
@@ -121,7 +117,9 @@ app.post("/login", upload.none(), async (req, res) => {
     }
   });
 });
-
+app.listen(process.env.PORT || 9595, () => {
+  console.log("server started");
+});
 let connectTodata = () => {
   connection = mysql.createConnection({
     database: process.env.DB_NAME,
