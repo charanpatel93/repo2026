@@ -11,6 +11,12 @@ let connection;
 app.use(cors());
 app.use(express.json());
 app.use("/Profilepics", express.static("Profilepics"));
+const path=require("path");
+
+app.use(express.static(path.join(__dirname, "client/build")));
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build", "index.html"));
+});
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "Profilepics");
@@ -117,15 +123,7 @@ app.post("/login", upload.none(), async (req, res) => {
     }
   });
 });
-const path = require("path");
 
-app.use(express.static(path.join(__dirname, "client", "build")));
-
-app.get("/*", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "client", "build", "index.html")
-  );
-});
 app.listen(process.env.PORT || 9595, () => {
   console.log("server started");
 });
