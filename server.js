@@ -6,7 +6,7 @@ let jwt = require("jsonwebtoken");
 let bcrypt = require("bcrypt");
 let dotenv = require("dotenv");
 const path = require("path");
-
+const fs = require("fs");
 let app = express();
 let connection;
 
@@ -15,7 +15,11 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/Profilepics", express.static("Profilepics"));
+const uploadDir = "Profilepics";
 
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "Profilepics");
