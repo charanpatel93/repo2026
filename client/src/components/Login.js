@@ -6,7 +6,8 @@ function Login() {
     let emairef=useRef();
     let pasref=useRef();
     let navigate=useNavigate();
-    let dispatch =useDispatch()
+    let dispatch =useDispatch();
+    const apiURL = "https://repo2026-1.onrender.com";
    
 useEffect(() => {
   const cridentials = async () => {
@@ -18,7 +19,7 @@ useEffect(() => {
     storee.append("token", token);
 
     let JSONData = await fetch(
-      "/validate",
+      `${apiURL}/validate`,
       {
         method: "POST",
         body: storee,
@@ -41,12 +42,12 @@ useEffect(() => {
     let storee=new FormData();
        storee.append("email",emairef.current.value);
         storee.append("password",pasref.current.value);
-
+      
     let reqOperationss={
         method:"POST",
         body:storee
     }
-   let JSONData=await fetch("/login",reqOperationss)
+   let JSONData=await fetch(`${apiURL}/login`,reqOperationss)
    let JSOData=await JSONData.json()
    console.log(JSOData)
    alert(JSOData.msg)

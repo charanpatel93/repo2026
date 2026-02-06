@@ -9,6 +9,7 @@ function Signup() {
     let ageref=useRef();
     let departmentref=useRef();
     let profileref=useRef();
+    const apiURL = "https://repo2026-1.onrender.com";
     let [images,setimages]=useState("https://cutiedp.com/wp-content/uploads/2025/08/no-dp-image-1.webp");
   let userData=async()=>{
     let dataa=new FormData();
@@ -19,14 +20,17 @@ function Signup() {
     dataa.append("age",ageref.current.value);
     dataa.append("department",departmentref.current.value);
     dataa.append("profile",profileref.current.files[0]);
-
+    
+if (profileref.current.files.length > 0) {
+  dataa.append("profile", profileref.current.files[0]);
+}
 
    let reqOperation={
     method:"POST",
     body:dataa
    }
 
-   let JSONData=await fetch("/signup",reqOperation)
+   let JSONData=await fetch(`${apiURL}/signup`,reqOperation)
    let JSOData=await JSONData.json()
    console.log(JSOData)
    alert(JSOData.msg)
